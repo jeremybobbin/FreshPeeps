@@ -1,0 +1,47 @@
+.dashboard {
+    .campaign-container {
+        //Card
+        @include card;
+        //End of card
+
+        .no-campaigns {
+            color: $dark-text;
+            text-shadow: 0px 0 2px $o-dark-grey;
+            text-align: center;
+            font-weight: lighter;
+            margin: 0;
+            padding: .1em 0 0 0;
+        }
+
+        > h1 {
+            @include boldHeader;
+            padding-bottom: .2em;
+            border-bottom: 1px solid rgba(0,0,0,.5);
+            box-shadow: 0 3px 2px -3px rgba(0,0,0,.4);
+            border-radius: 1px;
+            margin: 0 .4em  1.2em .4em;
+            
+        }
+        width: 100%;
+        margin: 0 auto 0 auto;
+
+        max-width: 600px;
+        
+        @include phone {
+            padding-left:1%;
+            padding-right:1%;
+            width: 90%;
+        }
+        @include tablet {
+            padding-left:2%;
+            padding-right:2%;
+            width: 75%;
+
+        }
+        @include desktop {
+            padding-left:3%;
+            padding-right:3%;
+            width: 60%;
+        }
+    }
+}

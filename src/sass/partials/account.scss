@@ -1,0 +1,7 @@
+.account {
+    @include card;
+    h1 {
+        @include boldHeader;
+    }
+
+}

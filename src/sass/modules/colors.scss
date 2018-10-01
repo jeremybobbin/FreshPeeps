@@ -1,0 +1,19 @@
+$o-grey: rgba(204, 204, 204, 0.6);
+$o-light-grey: rgba(233, 236, 239, 1);
+$o-dark-grey: rgba(150, 150, 150, .8);
+$o-black: rgba(73, 80, 87, 1);
+
+$o-white: rgba(225,255,255, .8);
+$o-purpe: rgba(62, 77, 142, .8);
+
+$base: rgba(230, 236, 240, 1);
+$primary: rgba(120, 201, 245, 1);
+$complement: complement($primary);
+$invert: invert($primary);
+
+$good: rgba(40, 167, 69, .7);
+$dark-good: darken($good, 6);
+
+$dark-text: rgba(52, 58, 64, 1);
+
+$campaign-offset: rgba(240, 240, 240, 0.8);

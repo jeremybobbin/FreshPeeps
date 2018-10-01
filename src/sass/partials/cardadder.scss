@@ -1,0 +1,46 @@
+.card-adder {
+
+    margin: 2em .6em 0 .6em;
+    padding: 1em 5% 1em 5%;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-rows: auto auto auto;
+
+    grid-gap: .5em;
+
+    > button {
+        padding: .5em 1em .5em 1em;
+        margin-top: .75em;
+        margin-right: auto;
+        margin-left: auto;
+        font-size: 1em;
+        color: white;
+        background-color: $good;
+        border: 1px solid $o-grey;
+        border-radius: 4px;
+        box-shadow: 0 0 5px $o-grey;
+        &:hover {
+            background-color: $dark-good;
+            box-shadow: 0 0 3px $o-dark-grey;
+            text-shadow: 0 0 1px $o-white;
+        }
+        transition-property: box-shadow, background-color, text-shadow;
+        transition-duration: .4s;
+
+    }
+
+    .name {
+        border-radius:  4px;
+        @include input;
+        display: inline-block;
+    }
+
+    .url-wrapper {
+        @include urlInput;
+    }
+}
+
+.dashboard {
+    transition: height .4s;
+}

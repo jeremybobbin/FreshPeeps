@@ -1,0 +1,34 @@
+$start: 0;
+$end: 3;
+
+.hamburger {
+  margin: auto 0;
+  padding: 6px 0 6px 12px;
+  > div {
+    width: 25px;
+    height: 2px;
+    background-color: $o-light-grey;
+    margin: 6px 0;
+  }
+  @for $i from $start through $end {
+    .bar-#{$i} {
+      @if ($i == $end) or ($i == $start) {
+        transition: background-color .2s (.1s * $i), transform .4s;
+      } @else {
+        transition: background-color .2s (.1s * $i), opacity .2s;
+      }
+    }
+    &:hover .bar-#{$i} {
+      background-color: white;
+    }
+    &.showing .bar-#{$i} {
+      @if $i == $start {
+        transform: translateY(4px * $end) rotate(-45deg);
+      } @else if $i == $end {
+        transform: translateY(-4px * $end) rotate(45deg);
+      } @else {
+        opacity: 0;
+      }
+    }
+  }
+}

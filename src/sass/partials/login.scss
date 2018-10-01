@@ -1,0 +1,52 @@
+.login {
+    @include card;
+
+    h1 {
+        @include boldHeader;
+    }
+
+    .username {
+        grid-area: username;
+    }
+
+    .password {
+        grid-area: password;
+    }
+
+    button {
+        @include roundButton
+    }
+
+    .below-login {
+        padding: .5em 0 .5em 1em;
+        background-color: rgba(240,240,240,0.6);
+        p {
+            margin: .7em 0 .4em 0;
+            font-size: .8em;
+            color: $dark-text;
+        }
+        a {
+            padding-left: .3em;
+            color: $primary;
+            text-decoration: none;
+        }
+    }
+
+    .form {
+        padding: 0 1em 1em 1em;
+        display: grid;
+        grid-template-rows: 1fr 1fr min-content;
+        grid-template-columns: auto  min-content 1fr;
+        
+        grid-template-areas:
+            'username username username'
+            'password password password'
+            'button check check';
+    
+        #session-checkbox {
+            @include checkbox;
+        }
+
+
+    }
+}

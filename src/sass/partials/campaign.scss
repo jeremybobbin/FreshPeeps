@@ -1,0 +1,173 @@
+.campaign {
+    margin: 1.5em;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+
+    grid-area: campaign;
+
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas: 
+        'head sidebar'
+        '. sidebar'
+        'settings settings';
+    
+    input.name, input#message {
+        border-radius: 4px;
+        @include input
+    }
+
+    div.url-wrapper {
+        @include urlInput;
+    }
+
+    &:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+    
+    .head {
+        padding: 0.5em;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 5px 0 0 0;
+        background-color: $campaign-offset;
+    
+        grid-area: head;
+        grid-gap: 5px;
+
+        display: grid;
+        grid-template-rows: 1fr min-content;
+
+    }
+
+    .settings {
+        text-align: left;
+        justify-items: left;
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 1em;
+        background-color: $campaign-offset;
+    
+        grid-area: settings;
+    
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 0.75em;
+        label {
+            width: 100%;
+            #message {
+                width: 100%;
+            }
+        }
+    }
+
+    .copy-pasta {
+        justify-self: center;
+        display: inline-block;
+        border: none;
+        padding: 1rem 2rem;
+        margin: 0.5em 0 0 0;
+        border-radius: 5px;
+        text-decoration: none;
+        background: #0069ed;
+        color: #ffffff;
+        font-family: sans-serif;
+        font-size: 1rem;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color 250ms ease-in-out, 
+                    transform 150ms ease;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    
+        &:hover,
+        &:focus {
+            background: #0053ba;
+        }
+    
+        &:focus {
+            outline: 1px solid #fff;
+            outline-offset: -4px;
+        }
+    
+        &:active {
+            transform: scale(0.99);
+        }
+    }
+
+    .sidebar {
+        padding: 2em 0.75em 2em 0.75em;
+        border-left: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0 5px 0 0;
+        background-color: $campaign-offset;
+    
+        grid-area: sidebar;
+    
+        display: grid;
+        grid-gap: 5px;
+        grid-template-rows: 3fr 2fr 2fr 2fr;
+
+        .icon, .switch {
+            justify-self: center;
+        }
+
+        .icon {
+            width: 30px;
+            padding-top: 0.5em;
+        }
+
+        .switch {
+            transform: rotate(-90deg);
+        }
+        
+    }
+    
+    
+}
+
+
+
+/* Campaign Header Grid Settings */
+
+
+
+
+/* Campaign Sidebar Grid Settings */
+
+
+
+/* Campaign Settings Grid Settings */
+
+
+
+
+
+/* Text inputs on settings */
+
+
+
+
+/* Label is shrink by default and also is shrink it's dropdowns and input boxes */
+
+
+
+
+
+
+.head > p.name,
+.head > p.url {
+
+    text-align: left;
+    margin: 0.25em 0 0 0.5em;
+}
+
+.head > .name {
+
+    font-size: 1.5em;
+}
+
+.head > .url {
+    font-size: 1em;
+}
+
+

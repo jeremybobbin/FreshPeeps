@@ -1,0 +1,23 @@
+.leads {
+
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding: 0.5em 0 0 0;
+    width: 100%;
+    &:hover {
+        box-shadow: 0 4px 12px 0 rgba(0,0,0,0.4);
+	}
+	@include phone {
+        max-width: 950px;
+        margin: .8em auto 0 auto;
+    }
+
+    h1 {
+        @include boldHeader;
+    }
+
+    .table-wrapper {
+        padding: 0 .5em .5em .5em;
+    }
+}

@@ -1,0 +1,138 @@
+@mixin phone {
+	@media (min-width: $phone) {
+		@content;
+	}
+}
+
+
+@mixin tablet {
+	@media (min-width: $tablet) {
+		@content;
+	}
+}
+
+
+@mixin desktop {
+	@media (min-width: $desktop) {
+		@content;
+	}
+}
+
+
+@mixin input {
+
+	padding: 8px 20px;
+	border: 1px solid #ccc;
+	color: $o-black;
+	font-size: 1rem;
+	display: inline-block;
+	border: 1px solid $o-dark-grey;
+}
+
+@mixin urlInput {
+	display: flex;
+	max-height: 36px;
+	> div {
+		display: flex;
+		margin-right: -1px;
+		> div {
+			cursor:pointer;
+			
+			height: 18px;
+			display: flex;
+			align-items: center;
+			padding: 8px 20px;
+			color: $o-black;
+			text-align: center;
+			white-space: nowrap;
+			background-color: $o-light-grey;
+			border-radius:  4px 0 0 4px;
+			border: 1px solid $o-dark-grey;
+		}
+
+	}
+	> input {
+		border-radius:  0 4px 4px 0;
+		font-size: 1rem;
+		flex: 1 1 auto;
+		display: inline-block;
+		@include input;
+	}
+}
+
+
+@mixin roundButton {
+	color: whitesmoke;
+	border-radius: 50px;
+	background-color: rgba(120, 201, 245, 1);
+	border: 1px dotted rgba(120, 201, 245, 1);
+	padding: .5em 1.3em;
+	font-size: 1em;
+	font-weight: bold;
+	margin: .6em 1em .6em .3em;
+	grid-area: button;
+}
+
+@mixin checkbox {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	display: inline-block;
+	position: relative;
+	background-color: #f1f1f1;
+	color: #666;
+	top: 10px;
+	height: 20px;
+	width: 20px;
+	border: 0;
+	border-radius: 4px;
+	cursor: pointer;
+	
+	margin-top: 6px;
+	margin-right: 7px;
+	outline: none;
+	&:checked::before {
+		position: absolute;
+		font: 13px/1 'Open Sans', sans-serif;
+		left: 7px;
+		top: 3px;
+		content: '\02143';
+		transform: rotate(40deg);
+	}
+	&:hover {
+		background-color: #f7f7f7;
+	}
+	&:checked {
+		background-color: #f1f1f1;
+	}
+	& + label {
+		padding-bottom: .2em;
+		font-size: .8em;
+		align-self: center;
+		color: $dark-text;
+		cursor: pointer;
+	}
+}
+
+@mixin boldHeader {
+	color: rgba(0,0,0,.75);
+	margin: 0;
+	padding: .25em 0 .6em .75em;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+@mixin card {
+	background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding: 0.5em 0 0 0;
+    width: 100%;
+    &:hover {
+        box-shadow: 0 4px 12px 0 rgba(0,0,0,0.4);
+	}
+	@include phone {
+        max-width: 640px;
+        margin: .8em auto 0 auto;
+    }
+}

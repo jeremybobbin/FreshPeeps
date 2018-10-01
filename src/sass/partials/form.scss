@@ -1,0 +1,13 @@
+.form {
+    label {
+        color: $dark-text;
+    }
+    input {
+        border-radius: 3px;
+        padding: .5em;
+        border: 1px solid rgba(200,200,200,0.5);
+        font-size: 1em;
+        margin-bottom: 0.5em;
+    }
+}
+

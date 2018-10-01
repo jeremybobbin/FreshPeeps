@@ -1,0 +1,21 @@
+// Modules
+@import "modules/colors";
+@import "modules/var";
+@import "modules/mixins";
+
+// Partials
+@import "partials/base";
+@import "partials/form";
+@import "partials/navbar";
+@import "partials/footer";
+@import "partials/hamburger";
+@import "partials/switch";
+@import "partials/message";
+@import "partials/campaign";
+@import "partials/cardadder";
+
+@import "partials/dashboard";
+@import "partials/leads";
+@import "partials/login";
+@import "partials/register";
+@import "partials/account";

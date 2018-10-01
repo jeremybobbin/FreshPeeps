@@ -1,0 +1,111 @@
+.navbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 1fr auto;
+    grid-template-areas:
+        'burger . username'
+        'links links links';
+
+
+    position: relative;
+    height: 100%;
+    background-color: $primary;
+    transition: height 2s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    border-top: 1px rgba(255, 255, 255, 0.3) solid;
+    border-bottom: 1px rgba(255, 255, 255, 0.3) solid;
+    padding: 0;
+    
+    .link-list {
+        grid-area: links;
+        max-height: 0;
+        transition: max-height 0.6s ease-in-out;
+        overflow: hidden;
+        justify-content: flex-end;
+        border-top: 1px rgba(255, 255, 255, 0.3) solid;
+        padding-left: 1.5em;
+        margin: 0;
+        & > * {
+            padding: 0 1em 0.5em 0;
+
+            &:first-child {
+                padding-top: 0.75em;
+                grid-area: title;
+            }
+
+            a {
+                font-size: 1.25em;
+                &:hover {
+                    color: white;
+                }
+
+                .active {
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .username {
+
+        grid-area: username;
+    
+        color: $base;
+        text-shadow: 1px 1px 1px $base;
+        float: right;
+        margin: 12px 16px 12px 0;
+        margin-right: 1em;
+    }
+    
+    
+    
+    .title {
+      text-align: right;
+      margin-left: auto;
+      margin: auto .5em auto auto;
+      padding: 0 0 0 .5em;
+      font-size: 1.4em;
+      font-weight: 100;
+    }
+    
+    li {
+        list-style-type: none;
+    }
+    a {
+      margin-left: auto;
+      color: $o-white;
+      text-decoration: none;
+      display: grid;
+      transition: color 0.4s 0s;
+    }
+
+    
+}
+
+
+@media (min-width: 769px) {
+    .navbar {
+        height: 45px;
+        grid-template-rows: 1fr;
+        grid-template-areas:
+            'title . links';
+
+        .hamburger {
+            display: none;
+        }
+
+        .link-list {
+            height: 45px;
+            display: flex;
+            max-height: 150px !important;
+            border: none !important;
+            a {
+                font-size: 1em !important;
+            }
+            li {
+                padding: 11px 1em 10px 1em !important;
+                margin: auto 0 auto 0;
+            }
+        }
+    }
+}
