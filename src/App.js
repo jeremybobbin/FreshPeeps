@@ -17,6 +17,8 @@ import AuthenticatedRoute from './components/AuthenticatedRoute';
 
 import './sass/main.scss';
 
+
+
 class App extends Component {
 	
 	render() {

@@ -1,63 +1,86 @@
 import React, {Component} from 'react';
+import ReactTable from "react-table";
+
 import Exclusive from '../components/Exclusive';
 import User from '../utils/User';
+
 import dao from '../utils/Dao';
 
 import {Inject} from '../components/Context';
 
+const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+]
 
-// const Account = ({redirect}) =>
-//     <Exclusive
-//         predicate={User.isSubscribed()}
-//         WhileWait={Wait}
-//         OnFailure={(props) => <Failure redirect={redirect} />}
-//         OnSuccess={Success}
-//     />;
+function dateToString(timestamp) {
+    console.log('TimeStamp:', timestamp);
+    const date = new Date(1000 * timestamp);
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month} ${day}, ${year}`;
+}
 
-// export default Inject(Account, 'redirect');
 
-// const Wait = props => <p>STILL WAITING</p>;
-// const Success = props => <p>YOU ARE SUBSCRIBED</p>;
+const tableColumns = [
+    {
+        Header: "Date",
+        id: 'created',
+        accessor: d => dateToString(d.created)
+    },
+    {
+        Header: "Payment Method",
+        accessor: "method",
+    },
+    {
+        Header: "Status",
+        accessor: "status",
+    },
+    {
+        Header: "Total",
+        id: 'total',
+        accessor: d => `$${d.total}`,
+    }
+];
 
-// const Failure = ({redirect}) => {
-//     return (
-//     <p>NOT SUBSCRIBED. CLICK <span style={{color: 'blue'}}
-//             onClick={() => window.location.assign('https://www.google.com')}
-//         >HERE</span> TO SUBSCRIBE</p>
-//     );
-// };
 
 export default class Account extends Component {
     constructor() {
         super();
         this.state = {
-            history: [],
+            history: [{
+                created: 275892783,
+                method: 'Credit Card',
+                status: 'Pending',
+                total: 1272
+            }],
             roles: {}
         };
     }
 
     componentDidMount() {
-        console.log('Inside of componentDidMount of Account.js');
         dao.getAccountInfo()
             .then(info => {
-                console.log('getAccountInfo did not throw');
-                console.log(info);
-                const { history, roles } = info;
+                const { billingInfo, roles } = info;
                 
-                this.setState({ history, roles });
+                this.setState({ history: billingInfo, roles });
             })
             .catch(err => {
-                console.log('getAccountInfo did throw: ');
-                console.log(err);
                 this.setState({
                     ...this.state,
                 });
             });
-    }
-
-    getLatestCycle() {
-        const { history } = this.state;
-        if( history && history.length ) return history[0];
     }
 
     isSubscribed() {
@@ -67,37 +90,58 @@ export default class Account extends Component {
 
         for(let role in roles) {
             const bool = roles[role] === "FreshPeeps Subscriber";
-            console.log('Testing: ', role);
-            console.log('Role: ', role, ' is ', bool);
             if(bool) return true;
         }
 
         return false;
     }
 
-    nextCycle() {
-        const { next } = this.getLatestCycle();
-        return next;
-    }
 
 
     render() {
         const isSubscribed = this.isSubscribed();
-        const latest = this.getLatestCycle();
+        const {history} = this.state;
+
+        console.log('HISTORY:', history);
 
         return (
             <div className='account'>
                 <h1>Your Account</h1>
                 <div className='container'>
-                    <h3>Account Status: { isSubscribed ? 'Subscribed' : 'NOT Subscribed'}</h3>
-                    <button>{ isSubscribed ? 'Cancel' : 'Subscribe'}</button>
-                    <h3>Next billing cycle: { latest } </h3>
+                    <div className='button-wrapper'>
+                        <p>You are currently <strong>{ isSubscribed ? 'subscribed' : 'unsubscribed'}</strong></p>
+                        { isSubscribed ? <Cancel /> : <Subscribe />}
+                    </div>
                     <h3>Billing History</h3>
-                    <p>{this.state.history}</p>
+                    <div className='table-wrapper'>
+                        <ReactTable
+                            data={history}
+                            columns={tableColumns}
+                            defaultPageSize={10}
+                            className="-striped -highlight"/>
+                    </div>
                 </div>
             </div>
         );
     }
-
-
 }
+
+const Subscribe = ({ redirect }) =>
+    <button onClick={() => window.location.href = 'https://www.google.com'} className='subscribe'>
+        Subscribe Now
+    </button>;
+
+
+const Cancel = ({ redirect }) =>
+    <button onClick={() => window.location.href = 'https://www.google.com'} className='cancel'>
+        Cancel Subscription
+    </button>;
+// data={leads}
+// columns={isMobile ? mobile : desktop}
+// manual 
+// data={leads}
+// pages={pages}
+// loading={loading}
+// onFetchData={this.fetchLeads} 
+// defaultPageSize={10}
+// className="-striped -highlight"/>

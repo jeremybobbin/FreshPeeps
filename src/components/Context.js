@@ -150,7 +150,16 @@ export class Provider extends React.Component {
                     state.campaigns = freshCampaigns;
                 });
             })
-            .catch((err) => this.logOut());
+            .catch((err) => {
+                console.log('Campaigns Error:', err);
+                const code = err.response.status;
+                if(code == 402) {
+                    this.redirect('/account', false);
+                    this.setMessage('You must be subscribed.')
+                } else {
+                    this.logOut();
+                }
+            });
     }
 
     toggle(campaignId, prop) {

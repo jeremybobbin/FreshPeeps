@@ -27,7 +27,9 @@ export default class Form extends React.Component {
 
     handle(e) {
         e.preventDefault();
-        const args = Object.keys(this.state).map(k => this.state[k]);
+        const args = Object.keys(this.state)
+            .map(k => this.state[k]);
+            
         this.submitHandler(...args);
     }
 

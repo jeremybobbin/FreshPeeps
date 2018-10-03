@@ -1,8 +1,7 @@
 import Axios from 'axios';
-import Cookies from 'universal-cookie';
+import Session from '../Session';
+import Server from '../Server';
 
-
-const cookies = new Cookies();
 
 export default class Dao {
     constructor(url) {
@@ -14,18 +13,21 @@ export default class Dao {
     //Custom request method for appending authentication headers.
     request(method = 'get', path = '', data = {}, headers = {}) {
         const url = this.url + path;
-        console.log(url);
-        if(this.cookiesAreSet()) {
-            headers['Session'] = this.getSession();
-            headers['X-CSRF-Token'] = this.getToken();
+
+        if(Session.isSet) {
+            headers['Session'] = Session.session;
+            headers['X-CSRF-Token'] = Session.token;
         }
 
         return Axios({method, url, data, headers})
             .then(response => {
-                console.log(`Response from ${method} ${path}`);
-                console.log(response, '\n\n');
+
                 if(response.data === "\n") throw "Server is DOWN.";
                 return response;
+            })
+            .catch(err => {
+                Server.log(err);
+                throw err;
             });
     }
 
@@ -97,60 +99,14 @@ export default class Dao {
         return this.request('delete', `campaigns/${id}`);
     }
 
-
-
-
-    setRemember(bool) {
-        cookies.set('remember', bool);
-    }
-
-    isRemembering() {
-        return Boolean(cookies.get('remember'));
-    }
-
-    clearCookies() {
-        cookies.remove('session');
-        cookies.remove('token');
-    }
-
-    getSession() {
-        return cookies.get('session');
-    }
-
-    getToken() {
-        return cookies.get('token');
-    }
-
-    cookiesAreSet() {
-        return this.getSession() && this.getToken(); 
-    }
-
-    setCookies(session, token) {
-        this.setSession(session);
-        cookies.set('token', token);
-    }
-
-    setSession(session) {
-        const expireAfterMinute = {
-            expires: new Date().getTime() + (1000 * 60)
-        }
-        if(this.isRemembering()) {
-            cookies.set('session', session);
-        } else {
-            cookies.set('session', session, expireAfterMinute);
-        }
-    }
-
     logIn(username, password, isRemembering = null) {
         let requestArgs;
         
-        if(isRemembering !== null && typeof isRemembering === 'boolean') {
-            this.setRemember(isRemembering);
-        }
+        Session.isRemembering = isRemembering;
 
         if(username && password) {
             requestArgs = ['user/login', {username, password}];
-        } else if (this.cookiesAreSet()) {
+        } else if (Session.isSet) {
             requestArgs = ['user/info']; 
         } else {
             return Promise.reject('');
@@ -159,11 +115,12 @@ export default class Dao {
         return this.request('post', ...requestArgs)
             .then(response => {
                 const {session, token, username, email} = response.data;
+                Session.set(session, token);
 
-                if(session && token) this.setCookies(session, token, isRemembering);
 
                 return {username, email};
             }, err => {
+                console.log("Evil Error:", err);
                 // Reads error and throws it back onto the promise chain
                 let errMessage = 'Something went wrong.';
                 try {
@@ -173,7 +130,7 @@ export default class Dao {
                         errMessage = 'Please try again.';
 
                     // This will not execute if response is null
-                    this.clearCookies();
+                    Session.clear();
                 } catch(e) {
                     errMessage = 'Our servers are down. Please try again later.';
                 }
@@ -185,7 +142,7 @@ export default class Dao {
     // Takes nothing, returns a promise for logout request. Always clears cookies
     logOut() {
         return this.request('post', 'user/logout')
-            .finally(() => this.clearCookies());
+            .finally(() => Session.clear());
     }
 
 
@@ -194,7 +151,7 @@ export default class Dao {
         return this.request('post', 'user/register', { username, email, password })
             .then(response => {
 
-                this.setSession(response.data.session);
+                Session.session = response.data.session;
                 
                 return response;
             })

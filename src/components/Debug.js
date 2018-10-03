@@ -46,4 +46,4 @@ const Debug = (props) =>
     </div>;
 
 
-export default Inject(Debug, 'redirect', 'set');
+export default Inject(Debug, 'redirect', 'set', 'getCampaigns');
