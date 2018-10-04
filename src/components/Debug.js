@@ -35,7 +35,7 @@ const Debug = (props) =>
         </span>
         <span 
             onClick={(e) => {
-                props.redirect('/account');
+                props.redirect('/dashboard');
             }}
             
             onKeyPress={(e) => {

@@ -14,6 +14,7 @@ import Account from './pages/Account';
 import Debug from './components/Debug';
 import Layout from './components/Layout';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
+import SubRoute from './components/SubRoute';
 
 import './sass/main.scss';
 
@@ -30,7 +31,7 @@ class App extends Component {
 							exact path="/" 
 							component={Root}
 						/>
-						<AuthenticatedRoute
+						<SubRoute
 							exact path='/dashboard'
 							component={() => <Dashboard/>}
 						/>
@@ -46,7 +47,7 @@ class App extends Component {
 							exact path="/account"
 							component={Account}
 						/>
-						<AuthenticatedRoute
+						<SubRoute
 							path="/leads"
 							component={Leads}
 						/>
@@ -55,7 +56,7 @@ class App extends Component {
 							component={Logout}
 						/>
 					</Layout>
-					<Debug />
+					{/* <Debug /> */}
 				</Provider>
 			</BrowserRouter>
 		);

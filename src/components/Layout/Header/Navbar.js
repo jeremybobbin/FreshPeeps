@@ -40,7 +40,7 @@ export default class Navbar extends Component {
 
 const linkContainerStyles = {
     entered: {
-        maxHeight: '150px',
+        maxHeight: '250px',
     },
 };
 

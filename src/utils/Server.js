@@ -10,7 +10,23 @@ export default class Server {
         if(body) body = JSON.stringify(body);
 
         return fetch(path, {method, body, headers})
-            .then(res => Promise.all([ res, res.json() ]))
+            .then(res => {
+
+                if(res === "\n") {
+                    const msg = "Server did not response."
+                    console.log(msg);
+                    throw msg;
+                }
+
+                //Just return null if .json() throws
+                const jsonify = res.json()
+                    .catch(() => {
+                        console.log('Could not jsonify:', res);
+                        return null;
+                    });
+
+                return Promise.all([ res, jsonify ]);
+            })
             .then(([ response, body ]) => {
                 
                 const { status } = response;

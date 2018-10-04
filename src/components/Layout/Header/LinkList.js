@@ -14,7 +14,6 @@ const LinkList = ({isLoggedIn}) =>
         :
         <React.Fragment>
             <li><NavLink exact to="/login">Log in</NavLink></li>
-            <li><NavLink exact to="/account">Account</NavLink></li>
             <li><NavLink exact to="/register">Register</NavLink></li>
         </React.Fragment>;
 

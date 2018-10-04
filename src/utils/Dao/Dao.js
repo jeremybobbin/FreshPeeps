@@ -114,11 +114,12 @@ export default class Dao {
             
         return this.request('post', ...requestArgs)
             .then(response => {
-                const {session, token, username, email} = response.data;
+                const {session, token, username, email, roles} = response.data;
+                
                 Session.set(session, token);
 
-
-                return {username, email};
+                return {username, email, roles};
+                
             }, err => {
                 console.log("Evil Error:", err);
                 // Reads error and throws it back onto the promise chain

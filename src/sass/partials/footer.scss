@@ -1,7 +1,10 @@
-.footer p {
-    color: rgba(0,0,0,.7);
+.footer {
+    background-color: rgba(71, 81, 88, 0.4);
+    p {
+        color: rgba(0,0,0,.7);
 
-    text-align: center;
-    padding-top: 1.75em;
-    text-decoration: line-through;
+        text-align: center;
+        padding-top: 1.75em;
+        text-decoration: line-through;
+    }
 }

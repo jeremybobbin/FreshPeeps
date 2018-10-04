@@ -58,6 +58,8 @@ export class Provider extends React.Component {
             message: '',
             messageIsShowing: false,
             sessionEnabled: false,
+            isSubscribed: false,
+            
         };
     }
 
@@ -104,6 +106,7 @@ export class Provider extends React.Component {
             state.username = '';
             state.email = '';
             state.isLoggedIn = false;
+            state.isSubscribed = false;
             this.redirect(redirectPath, false);
             return this.setMessage(message);
         });
@@ -260,7 +263,7 @@ export class Provider extends React.Component {
             Promise.all(campaigns.map(campaign => 
                 dao.put(campaign))
             ).catch(message => {
-                this.reset(message, '/login');
+                console.log(message);
             });
         }.bind(this), cooldown);
     }
@@ -273,10 +276,15 @@ export class Provider extends React.Component {
     logIn(usernameAttempt, password, message) {
         return dao.logIn(usernameAttempt, password, this.state.sessionEnabled)
             .then(userInfo => this.set(state => {
+                    const { roles } = userInfo;
+
+                    if(roles && roles["4"])
+                        state.isSubscribed = true;
 
                     state.username = userInfo.username;
                     state.email = userInfo.email;
                     state.isLoggedIn = true;
+
                     
                     this.redirect('/dashboard', false);
 
@@ -333,6 +341,10 @@ export class Provider extends React.Component {
             });
     }
 
+    isSubscribed() {
+        return this.state.isSubscribed;
+    }
+
     toggleSession() {
         this.set(state => {
             state.sessionEnabled = !state.sessionEnabled;
@@ -378,6 +390,7 @@ export class Provider extends React.Component {
                 register: (user, email, pass) => this.register(user, email, pass),
                 toggleSession: () => this.toggleSession(),
                 resendVerification: () => this.resendVerification(),
+                isSubscribed: () => this.isSubscribed(),
 
                 redirect: (url) => this.redirect(url),
                 
