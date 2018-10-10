@@ -5,7 +5,7 @@ import Select from 'react-select';
 import EffectSelector from './EffectSelector';
 import Script from './Script';
 
-export default ({onChange, location, message, effect, isVisible}) => {
+export default ({onChange, location, message, effect, isVisible, id}) => {
     return isVisible ? (
 
         <div className='settings'>
@@ -24,7 +24,7 @@ export default ({onChange, location, message, effect, isVisible}) => {
                 onChange={(newMessage) => onChange('message', newMessage)}
                 value={message}
             />
-            <Script />
+            <Script campaignId={id}/>
         </div>
 
     ) : null;

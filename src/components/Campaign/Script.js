@@ -7,8 +7,8 @@ let baseUrl = 'https://freshpeeps.com/api/';
 
 export default class Script extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             copied: false,
             buttonText: 'Copy Script'
@@ -21,9 +21,11 @@ export default class Script extends React.Component {
   
   
     render() {
-        const script = `<script>(function(w,n) {if (typeof(w[n]) == 'undefined'){ob=n+'Obj';w[ob]=[];w[n]=function(){w[ob].push(arguments);};d=document.createElement('script');d.type = 'text/javascript';d.async=1;d.src='${baseUrl + 'script'}' ;x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(d,x);}})(window, 'sparrow', '');</script>`;
-        
+        const { campaignId } = this.props;
         const { buttonText } = this.state;
+        
+        const script = `<script>(function(w,n) {if (typeof(w[n]) == 'undefined'){ob=n+'Obj';w[ob]=[];w[n]=function(){w[ob].push(arguments);};d=document.createElement('script');d.type = 'text/javascript';d.async=1;d.src='${baseUrl + 'script'}' ;x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(d,x);}})(window, 'sparrows', '');sparrow.config.campaignId=${ campaignId };</script>`;
+        
 
         return (
             <CopyToClipboard

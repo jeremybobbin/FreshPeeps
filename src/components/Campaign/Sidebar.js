@@ -2,14 +2,15 @@ import React from 'react';
 
 
 
-export default ({remove, toLeads, toggleSettings, toggleSwitch, isOn}) => 
+export default ({remove, toLeads, toggleSettings, toggleSwitch, isOn, id}) => 
     <div className='sidebar' >
         <Switch
             value={isOn}
             onChange={toggleSwitch}
         />
 
-        <Person 
+        <Person
+            campaignId={id}
             onClick={toLeads}
         />
         <Cog 
@@ -29,11 +30,11 @@ const Trash = ({onClick}) =>
         onClick={(e) => onClick(e)}
     />;
 
-const Person = ({onClick}) =>
+const Person = ({campaignId}) =>
     <input type='image'
         className={`icon person`}
-        src={'https://image.flaticon.com/icons/svg/126/126486.svg'}
-        onClick={(e) => onClick(e)}
+        src={'https://image.flaticon.com/icons/svg/126/126488.svg'}
+        onClick={(e) => window.open(`https://www.freshpeeps.com/api/download/${campaignId}`, "_blank")}
     />;
 
 const Cog = ({onClick}) => 

@@ -44,6 +44,7 @@ export default class Campaign extends React.Component {
                 />
                 
                 <Sidebar
+                    id={id}
                     remove={() => remove(id)}
                     toLeads={() => toLeads(id)}
                     toggleSettings={() => this.open()}
@@ -52,6 +53,7 @@ export default class Campaign extends React.Component {
                 />
                 
                 <Settings
+                    id={id}
                     isVisible={this.state.isOpen}
                     onChange={(k, v) => update(k, v)}
                     location={location}
