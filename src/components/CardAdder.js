@@ -6,7 +6,7 @@ import UrlInput from './UrlInput';
 const CardAdder = ({name, url, update, protocol, post, toggle}) =>
     <form onSubmit={(e) => {
         e.preventDefault();
-        post(name, protocol + url);
+        post(name, url);
     }} className='card-adder'>
 
         <input

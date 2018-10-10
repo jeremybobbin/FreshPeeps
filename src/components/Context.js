@@ -278,9 +278,14 @@ export class Provider extends React.Component {
             .then(userInfo => this.set(state => {
                     const { roles } = userInfo;
 
-                    if(roles && roles["4"])
+                    
+                    if(roles && roles["4"]) {
                         state.isSubscribed = true;
-
+                        console.log('Is subscribed:', roles);
+                    } else {
+                        console.log('NOT Subscribed:', roles);
+                        console.log(userInfo)
+                    }
                     state.username = userInfo.username;
                     state.email = userInfo.email;
                     state.isLoggedIn = true;

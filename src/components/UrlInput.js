@@ -7,7 +7,7 @@ export default class UrlInput extends Component {
             isSecure: url.startsWith('https://'),
             url: url.replace(/(^\w+:|^)\/\//, ''),
         }
-        this.updateUrl = (url) => update('url', this.getProtocol() + url);
+        this.updateUrl = (url) => update('url', url);
     }
 
     set(callback) {
