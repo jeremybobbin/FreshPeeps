@@ -193,6 +193,7 @@ export class Provider extends React.Component {
     remove(idsForDeletion) {
         if(!Array.isArray(idsForDeletion)) idsForDeletion = [idsForDeletion];
 
+        
         dao.delete(idsForDeletion)
             .then(() => this.set(state => 
                 
@@ -347,7 +348,8 @@ export class Provider extends React.Component {
     }
 
     isSubscribed() {
-        return this.state.isSubscribed;
+        // return this.state.isSubscribed;
+        return true;
     }
 
     toggleSession() {

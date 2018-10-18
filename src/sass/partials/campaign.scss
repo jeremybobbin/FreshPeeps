@@ -121,6 +121,12 @@
         }
         
     }
+
+    .isRed {
+        background-color: rgba(255, 0, 0, .6);
+        border-radius: 5px;
+        padding: .2em .1em .2em .1em;
+    }
     
     
 }

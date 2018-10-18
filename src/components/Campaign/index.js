@@ -9,13 +9,36 @@ export default class Campaign extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: false
+            modalIsOpen: false,
+            isOpen: false,
+            isRed: false
         };
     }
 
     open() {
         const isOpen = !this.state.isOpen;
         this.setState({ isOpen });
+    }
+
+    trashClick() {
+        const { isRed } = this.state;
+
+        if(isRed) {
+            this.props.remove(this.props.id);
+        } else {
+            this.setState({
+                ...this.state,
+                isRed: true
+            });
+            setTimeout(() => this.unRed(), 3000);
+        }
+    }
+
+    unRed() {
+        this.setState({
+            ...this.state,
+            isRed: false
+        });
     }
 
     render() {
@@ -33,9 +56,12 @@ export default class Campaign extends React.Component {
             toggle,
             toLeads,    
         } = this.props;
+
+        const { isRed } = this.state;
+
         return (
             <div className='campaign'>
-                
+
                 <Head
                     update={(k, v) => update(k, v)}
                     name={name}
@@ -45,11 +71,12 @@ export default class Campaign extends React.Component {
                 
                 <Sidebar
                     id={id}
-                    remove={() => remove(id)}
+                    trashClick={() => this.trashClick()}
                     toLeads={() => toLeads(id)}
                     toggleSettings={() => this.open()}
                     toggleSwitch={() => toggle('isEnabled')}
                     isOn={isEnabled}
+                    isRed={isRed}
                 />
                 
                 <Settings

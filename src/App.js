@@ -56,7 +56,7 @@ class App extends Component {
 							component={Logout}
 						/>
 					</Layout>
-					{/* <Debug /> */}
+					<Debug />
 				</Provider>
 			</BrowserRouter>
 		);

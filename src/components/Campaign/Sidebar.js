@@ -1,8 +1,7 @@
 import React from 'react';
 
 
-
-export default ({remove, toLeads, toggleSettings, toggleSwitch, isOn, id}) => 
+export default ({isRed, trashClick, toLeads, toggleSettings, toggleSwitch, isOn, id}) => 
     <div className='sidebar' >
         <Switch
             value={isOn}
@@ -17,15 +16,16 @@ export default ({remove, toLeads, toggleSettings, toggleSwitch, isOn, id}) =>
             onClick={toggleSettings}
         />
         <Trash
-            onClick={remove}
+            onClick={trashClick}
+            isRed={isRed}
         />
     </div>;
 
 
 
-const Trash = ({onClick}) => 
+const Trash = ({onClick, isRed}) => 
     <input type='image'
-        className={`icon trash`}
+        className={`icon trash ${isRed ? 'isRed' : ''}`}
         src={'https://image.flaticon.com/icons/svg/126/126468.svg'}
         onClick={(e) => onClick(e)}
     />;
